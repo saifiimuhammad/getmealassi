@@ -1,22 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
 import { uploadFilesToCloudinary } from "@/app/lib/features";
 import { connectDb } from "@/app/utils/db";
 import { User } from "@/app/models/User";
-// import { v2 as cloudinary } from "cloudinary";
 
 export async function POST(
-  req: NextRequest,
+  req: Request,
   { params }: { params: { username: string } }
-): Promise<NextResponse> {
+) {
   try {
     connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
 
-    // cloudinary.config({
-    //   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    //   api_key: process.env.CLOUDINARY_API_KEY,
-    //   api_secret: process.env.CLOUDINARY_API_SECRET,
-    // });
-    // Parse form data
     const formData = await req.formData();
 
     const name = formData.get("name") as string | null;
@@ -54,9 +46,7 @@ export async function POST(
       };
     }
 
-    // Construct the update payload, including only fields that are provided
-    const updatePayload = {};
-
+    const updatePayload: any = {};
     if (name) updatePayload.name = name;
     if (username) updatePayload.username = username;
     if (email) updatePayload.email = email;
@@ -64,31 +54,24 @@ export async function POST(
     if (avatar) updatePayload.avatar = avatar;
     if (banner) updatePayload.banner = banner;
 
-    // Debug: Log the username you're querying for
-    console.log("Updating user with username: ", params?.username);
+    console.log("Updating user with username/email: ", params?.username);
 
-    // Find and update the user by email (or username if needed)
     const updatedUser = await User.findOneAndUpdate(
-      { email: params?.username }, // Searching by email here
+      { email: params?.username },
       updatePayload,
-      { new: true, upsert: false } // No new user will be created
+      { new: true, upsert: false }
     );
 
-    // Handle case where no user was found
     if (!updatedUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return Response.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Return success response with updated user
-    return NextResponse.json(
+    return Response.json(
       { message: "Profile updated successfully", user: updatedUser },
       { status: 200 }
     );
   } catch (error) {
     console.error("Error in POST /api/update-profile:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -1,12 +1,11 @@
 import { Payment } from "@/app/models/Payment";
 import { User } from "@/app/models/User";
 import { connectDb } from "@/app/utils/db";
-import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const { amount, name, message, reciever } = await req.json();
 
@@ -22,6 +21,13 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email: reciever });
 
+    if (!user) {
+      return Response.json(
+        { success: false, message: "Receiver not found" },
+        { status: 404 }
+      );
+    }
+
     const payment = {
       paymentId: paymentIntent.id,
       name,
@@ -33,18 +39,18 @@ export async function POST(req: NextRequest) {
 
     await Payment.create(payment);
 
-    return NextResponse.json({
+    return Response.json({
       success: true,
       clientSecret: paymentIntent.client_secret,
     });
   } catch (error) {
     console.error("Internal Error", error);
 
-    return NextResponse.json(
+    return Response.json(
       {
         success: false,
         message: "Internal Server Error",
-        error,
+        error: (error as Error).message,
       },
       {
         status: 500,
