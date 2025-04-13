@@ -1,10 +1,9 @@
+import { NextPage } from "next";
 import Link from "next/link";
 
-type PaymentSuccessProps = {
+const PaymentSuccess: NextPage<{
   searchParams: { [key: string]: string | string[] | undefined };
-};
-
-const PaymentSuccess = ({ searchParams }: PaymentSuccessProps) => {
+}> = ({ searchParams }) => {
   const { amount } = searchParams;
 
   return (
@@ -29,4 +28,5 @@ const PaymentSuccess = ({ searchParams }: PaymentSuccessProps) => {
     </div>
   );
 };
+
 export default PaymentSuccess;
