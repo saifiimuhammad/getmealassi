@@ -4,7 +4,7 @@ type PaymentSuccessProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-const PaymentSuccess = async ({ searchParams }: PaymentSuccessProps) => {
+const PaymentSuccess = ({ searchParams }: PaymentSuccessProps) => {
   const { amount } = searchParams;
 
   return (
