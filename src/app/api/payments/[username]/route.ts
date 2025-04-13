@@ -1,14 +1,18 @@
-import { Payment } from "../../../models/Payment";
-import { User } from "../../../models/User";
-import { connectDb } from "../../../utils/db";
+import { Payment } from "@/app/models/Payment";
+import { User } from "@/app/models/User";
+import { connectDb } from "@/app/utils/db";
 
-export async function GET(
-  req: Request,
-  context: { params: { username: string } }
-) {
-  connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
+export async function GET(req: Request) {
+  await connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
 
-  const user = await User.findOne({ username: context.params.username });
+  const url = new URL(req.url);
+  const username = url.pathname.split("/").pop(); // get last part of path
+
+  if (!username) {
+    return new Response("Username is required", { status: 400 });
+  }
+
+  const user = await User.findOne({ username });
   if (!user) {
     return new Response("User not found", { status: 404 });
   }
