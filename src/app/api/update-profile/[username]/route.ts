@@ -46,7 +46,7 @@ export async function POST(
       };
     }
 
-    const updatePayload: any = {};
+    const updatePayload = {};
     if (name) updatePayload.name = name;
     if (username) updatePayload.username = username;
     if (email) updatePayload.email = email;
