@@ -20,6 +20,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutPage from "../../components/CheckoutPage";
 import convertToSubcurrency from "../../lib/convertToSubcurrency";
+import { useParams } from "next/navigation";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLC_KEY === undefined) {
   throw new Error("Stripe public key is not defined.");
@@ -43,13 +44,7 @@ const amountList: AmountType[] = [
   { amount: "$500 ⭐", value: 500 },
 ];
 
-const Username = ({
-  params,
-}: {
-  params: {
-    username: string;
-  };
-}) => {
+const Username = () => {
   const [amount, setAmount] = useState<number>(0);
   const [name, setName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -57,13 +52,16 @@ const Username = ({
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const params = useParams();
+  const username = params?.username as string;
+
   const { data: session } = useSession();
 
   const stripePromise = loadStripe(user?.stripeInfo?.publishableKey as string);
 
   const getData = async () => {
     setLoading(true);
-    fetch(`/api/payments/${params.username}`)
+    fetch(`/api/payments/${username}`)
       .then((res) => res.json())
       .then((data) => {
         setPayments(data.payments);
