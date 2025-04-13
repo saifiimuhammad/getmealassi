@@ -155,7 +155,7 @@ const Username = ({ params }: { params: paramsType }) => {
           <h2 className="text-2xl font-medium">Supporters 🌟</h2>
           <ul className="flex flex-col gap-y-2 w-full overflow-y-scroll h-100 px-2">
             {payments.length > 0 ? (
-              payments.map((p: any, key) => (
+              payments.map((p, key) => (
                 <li
                   key={key}
                   className="text-md font-light flex items-center justify-start w-full"

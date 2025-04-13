@@ -26,12 +26,16 @@ export async function GET(req: Request) {
       success: true,
       users,
     });
-  } catch (error: any) {
-    console.log("Error searching users:", error);
+  } catch (error: unknown) {
+    console.error("Error searching users:", error);
+
+    const message =
+      error instanceof Error ? error.message : "Something went wrong";
+
     return Response.json(
       {
         success: false,
-        message: error.message,
+        message,
       },
       { status: 500 }
     );

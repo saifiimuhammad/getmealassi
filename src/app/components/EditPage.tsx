@@ -5,7 +5,6 @@ import { ChangeEvent, useRef, useState } from "react";
 
 import defaultProfile from "../assets/images/defaultProfile.jpg";
 import defaultCover from "../assets/images/defaultCover.png";
-import { set } from "mongoose";
 import Notification from "./Notofication";
 
 type FormType = {

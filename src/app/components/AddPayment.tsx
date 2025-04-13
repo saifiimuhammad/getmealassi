@@ -5,7 +5,6 @@ import { useState } from "react";
 const AddPayment: React.FC = ({ loggedUser }: { loggedUser: string }) => {
   const [secretKey, setSecretKey] = useState<string>("");
   const [publishableKey, setPublishableKey] = useState<string>("");
-  const [webhookSecret, setWebhookSecret] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

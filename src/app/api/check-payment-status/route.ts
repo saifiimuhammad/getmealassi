@@ -1,5 +1,3 @@
-import { Payment } from "@/app/models/Payment";
-import { connectDb } from "@/app/utils/db";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 

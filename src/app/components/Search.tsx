@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type UserSearchType = {
   name: string;
@@ -50,6 +50,7 @@ const Search = () => {
               setLoading(false);
             });
         } catch (error) {
+          console.log("Error:", error);
           setError("Something went wrong. Please try again later.");
           setLoading(false);
         }

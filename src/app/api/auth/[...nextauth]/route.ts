@@ -30,7 +30,7 @@ export const authOptions = NextAuth({
   ],
   // secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
       if (account?.provider === "github") {
         try {
           const uri = process.env.MONGODB_URI as string;

@@ -55,7 +55,7 @@ export async function POST(
     }
 
     // Construct the update payload, including only fields that are provided
-    const updatePayload: any = {};
+    const updatePayload = {};
 
     if (name) updatePayload.name = name;
     if (username) updatePayload.username = username;
