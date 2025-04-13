@@ -2,12 +2,9 @@ import { uploadFilesToCloudinary } from "@/app/lib/features";
 import { connectDb } from "@/app/utils/db";
 import { User } from "@/app/models/User";
 
-export async function POST(
-  req: Request,
-  { params }: { params: { username: string } }
-) {
+export async function POST(req: Request) {
   try {
-    connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
+    await connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
 
     const formData = await req.formData();
 
@@ -17,6 +14,10 @@ export async function POST(
     const tagline = formData.get("tagline") as string | null;
     const avatarRaw = formData.get("avatar") as File | null;
     const bannerRaw = formData.get("banner") as File | null;
+
+    // Extract username from URL
+    const url = new URL(req.url);
+    const usernameParam = url.pathname.split("/").pop(); // last part of path
 
     let avatar, banner;
 
@@ -46,7 +47,7 @@ export async function POST(
       };
     }
 
-    const updatePayload = {};
+    const updatePayload: any = {};
     if (name) updatePayload.name = name;
     if (username) updatePayload.username = username;
     if (email) updatePayload.email = email;
@@ -54,10 +55,8 @@ export async function POST(
     if (avatar) updatePayload.avatar = avatar;
     if (banner) updatePayload.banner = banner;
 
-    console.log("Updating user with username/email: ", params?.username);
-
     const updatedUser = await User.findOneAndUpdate(
-      { email: params?.username },
+      { email: usernameParam },
       updatePayload,
       { new: true, upsert: false }
     );
