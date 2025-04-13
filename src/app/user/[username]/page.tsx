@@ -29,10 +29,6 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLC_KEY === undefined) {
 //   process.env.NEXT_PUBLIC_STRIPE_PUBLC_KEY as string
 // );
 
-type paramsType = {
-  username: string;
-};
-
 type AmountType = {
   amount: string;
   value: number;
@@ -47,7 +43,13 @@ const amountList: AmountType[] = [
   { amount: "$500 ⭐", value: 500 },
 ];
 
-const Username = ({ params }: { params: paramsType }) => {
+const Username = ({
+  params,
+}: {
+  params: {
+    username: string;
+  };
+}) => {
   const [amount, setAmount] = useState<number>(0);
   const [name, setName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
