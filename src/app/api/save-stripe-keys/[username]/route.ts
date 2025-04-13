@@ -1,16 +1,18 @@
 import { User } from "@/app/models/User";
 import { connectDb } from "@/app/utils/db";
 
-export async function POST(
-  req: Request,
-  { params }: { params: { username: string } }
-) {
+export async function POST(req: Request) {
   const { secretKey, publishableKey } = await req.json();
 
-  console.log(secretKey, publishableKey);
+  const url = new URL(req.url);
+  const username = url.pathname.split("/").pop(); // get dynamic [username]
+
+  if (!username) {
+    return Response.json({ error: "Username is required" }, { status: 400 });
+  }
 
   try {
-    connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
+    await connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
 
     const updatePayload: {
       secretKey?: string;
@@ -20,15 +22,11 @@ export async function POST(
     if (secretKey) updatePayload.secretKey = secretKey;
     if (publishableKey) updatePayload.publishableKey = publishableKey;
 
-    console.log(updatePayload);
-
     const updatedUser = await User.findOneAndUpdate(
-      { email: params?.username },
+      { email: username },
       { stripeInfo: updatePayload },
       { new: true, upsert: false }
     );
-
-    console.log(updatedUser);
 
     if (!updatedUser) {
       return Response.json({ error: "User not found" }, { status: 404 });
@@ -42,7 +40,7 @@ export async function POST(
       { status: 200 }
     );
   } catch (error) {
-    console.log("Error in saving stripe keys: \n" + error);
+    console.log("Error in saving stripe keys:", error);
     return Response.json(
       {
         success: false,
