@@ -35,6 +35,34 @@ type AmountType = {
   value: number;
 };
 
+type UserType = {
+  name?: string;
+  username?: string;
+  email?: string;
+  tagline?: string;
+  avatar?: {
+    public_id?: string;
+    url?: string;
+  };
+  banner?: {
+    public_id?: string;
+    url?: string;
+  };
+  stripeInfo?: {
+    secretKey?: string;
+    publishableKey?: string;
+  };
+};
+
+type PaymentType = {
+  paymentId?: string;
+  name?: string;
+  amount?: number;
+  status?: boolean;
+  reciever?: string;
+  message?: string;
+};
+
 const amountList: AmountType[] = [
   { amount: "$5", value: 5 },
   { amount: "$10", value: 10 },
@@ -48,7 +76,7 @@ const Username = () => {
   const [amount, setAmount] = useState<number>(0);
   const [name, setName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<UserType>({});
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -155,7 +183,7 @@ const Username = () => {
           <h2 className="text-2xl font-medium">Supporters 🌟</h2>
           <ul className="flex flex-col gap-y-2 w-full overflow-y-scroll h-100 px-2">
             {payments.length > 0 ? (
-              payments.map((p, key) => (
+              payments.map((p: PaymentType, key) => (
                 <li
                   key={key}
                   className="text-md font-light flex items-center justify-start w-full"
@@ -167,8 +195,8 @@ const Username = () => {
                     height={80}
                     className="hidden md:block"
                   />{" "}
-                  {p.name} donated ${p.amount / 100} with a message &quot;
-                  {p.message}
+                  {p?.name} donated ${p?.amount / 100} with a message &quot;
+                  {p?.message}
                   &quot;
                 </li>
               ))

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const AddPayment: React.FC = ({ loggedUser }: { loggedUser: string }) => {
+const AddPayment = ({ loggedUser }: { loggedUser: string }) => {
   const [secretKey, setSecretKey] = useState<string>("");
   const [publishableKey, setPublishableKey] = useState<string>("");
 

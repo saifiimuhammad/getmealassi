@@ -1,7 +1,11 @@
 import Link from "next/link";
 
-const PaymentSuccess = async ({ searchParams }) => {
-  const { amount } = await searchParams;
+type PaymentSuccessProps = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+const PaymentSuccess = async ({ searchParams }: PaymentSuccessProps) => {
+  const { amount } = searchParams;
 
   return (
     <div className="bg-[var(--background)] text-[var(--text)] flex justify-center items-center h-screen">

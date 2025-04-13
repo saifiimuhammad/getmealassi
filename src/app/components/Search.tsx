@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -107,10 +108,12 @@ const Search = () => {
               onClick={() => handleUserClick(user?.username)}
               className="flex items-center gap-x-4 p-2 hover:bg-gray-100 cursor-pointer"
             >
-              <img
+              <Image
                 src={user?.avatar?.url || ""}
                 alt={user?.name}
                 className="w-10 h-10 rounded-full"
+                width={0}
+                height={0}
               />
               <div>
                 <h3 className="text-lg font-semibold">{user?.name}</h3>

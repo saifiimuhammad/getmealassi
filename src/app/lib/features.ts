@@ -1,7 +1,12 @@
 import { v4 as uuid } from "uuid";
 import { v2 as cloudinary } from "cloudinary";
 
-export const getBase64 = (file) =>
+type FileType = {
+  mimetype: string;
+  buffer: Buffer;
+};
+
+export const getBase64 = (file: FileType) =>
   `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
 
 export const uploadFilesToCloudinary = async (files = []) => {

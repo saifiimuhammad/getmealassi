@@ -1,6 +1,7 @@
 import { connectDb } from "@/app/utils/db";
 import GitHubProvider from "next-auth/providers/github";
 import { User } from "../../../models/User";
+import { Account, Profile, User as AuthUser } from "next-auth";
 
 export const authOptions = {
   providers: [
@@ -10,7 +11,15 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({
+      user,
+      account,
+      profile,
+    }: {
+      user: AuthUser;
+      account: Account | null;
+      profile?: Profile;
+    }) {
       if (account?.provider === "github") {
         try {
           const uri = process.env.MONGODB_URI as string;

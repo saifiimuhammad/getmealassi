@@ -47,7 +47,20 @@ export async function POST(req: Request) {
       };
     }
 
-    const updatePayload = {};
+    const updatePayload: {
+      name?: string;
+      username?: string;
+      email?: string;
+      tagline?: string;
+      avatar?: {
+        public_id: string;
+        url: string;
+      };
+      banner?: {
+        public_id: string;
+        url: string;
+      };
+    } = {};
     if (name) updatePayload.name = name;
     if (username) updatePayload.username = username;
     if (email) updatePayload.email = email;
