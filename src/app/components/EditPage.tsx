@@ -81,7 +81,7 @@ const EditPage = ({ loggedUser }: { loggedUser: string }) => {
       setMessage(data.message);
 
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Internal Server Error", error);
       setError(error?.message || "Failed to update profile");
       setLoading(false);
