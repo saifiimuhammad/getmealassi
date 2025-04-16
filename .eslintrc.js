@@ -2,6 +2,6 @@ module.exports = {
   // ...other config
   rules: {
     // ...other rules
-    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };
