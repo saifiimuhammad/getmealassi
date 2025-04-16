@@ -195,7 +195,8 @@ const Username = () => {
                     height={80}
                     className="hidden md:block"
                   />{" "}
-                  {p?.name} donated ${p?.amount / 100} with a message &quot;
+                  {p?.name} donated ${(p?.amount as number) / 100} with a
+                  message &quot;
                   {p?.message}
                   &quot;
                 </li>
