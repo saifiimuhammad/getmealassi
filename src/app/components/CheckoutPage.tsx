@@ -28,7 +28,7 @@ const CheckoutPage = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch("api/create-payment-intent", {
+    fetch("/api/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,10 @@ const CheckoutPage = ({
       }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((error) => {
+        console.error("Error fetching client secret:", error);
+      });
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
