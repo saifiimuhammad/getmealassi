@@ -4,7 +4,7 @@ import { User } from "@/app/models/User";
 
 export async function POST(req: Request) {
   try {
-    await connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
+    connectDb(process.env.MONGODB_URI as string, "GetmeaLassi");
 
     const formData = await req.formData();
 
@@ -27,15 +27,11 @@ export async function POST(req: Request) {
         buffer: avatarBuffer,
         mimetype: avatarRaw.type,
       };
-      // Fix: Handle possible undefined result
-      const avatarUploads = await uploadFilesToCloudinary([avatarFile]);
-      if (avatarUploads && avatarUploads.length > 0) {
-        const avatarUpload = avatarUploads[0];
-        avatar = {
-          public_id: avatarUpload.public_id,
-          url: avatarUpload.url,
-        };
-      }
+      const [avatarUpload] = await uploadFilesToCloudinary([avatarFile]);
+      avatar = {
+        public_id: avatarUpload.public_id,
+        url: avatarUpload.url,
+      };
     }
 
     if (bannerRaw) {
@@ -44,15 +40,11 @@ export async function POST(req: Request) {
         buffer: bannerBuffer,
         mimetype: bannerRaw.type,
       };
-      // Fix: Handle possible undefined result
-      const bannerUploads = await uploadFilesToCloudinary([bannerFile]);
-      if (bannerUploads && bannerUploads.length > 0) {
-        const bannerUpload = bannerUploads[0];
-        banner = {
-          public_id: bannerUpload.public_id,
-          url: bannerUpload.url,
-        };
-      }
+      const [bannerUpload] = await uploadFilesToCloudinary([bannerFile]);
+      banner = {
+        public_id: bannerUpload.public_id,
+        url: bannerUpload.url,
+      };
     }
 
     const updatePayload: {
