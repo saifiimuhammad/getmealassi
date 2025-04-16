@@ -1,7 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
-const PaymentSuccess = ({ searchParams }: { searchParams: unknown }) => {
+const PaymentSuccess = ({
+  searchParams,
+}: {
+  searchParams: Promise<any> | undefined;
+}) => {
   const { amount } = searchParams;
 
   return (
