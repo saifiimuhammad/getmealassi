@@ -1,9 +1,7 @@
-import { NextPage } from "next";
 import Link from "next/link";
+import React from "react";
 
-const PaymentSuccess: NextPage<{
-  searchParams: { [key: string]: string | string[] | undefined };
-}> = ({ searchParams }) => {
+const PaymentSuccess = ({ searchParams }: { searchParams: unknown }) => {
   const { amount } = searchParams;
 
   return (
