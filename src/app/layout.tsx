@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import SessionWrapper from "./components/auth/SessionWrapper";
+import StripeWrapper from "./components/auth/StripeWrapper";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import "./globals.css";
-import SessionWrapper from "./components/auth/SessionWrapper";
-import StripeWrapper from "./components/auth/StripeWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +19,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "GetMeALassi",
   description: "Professional begging platform",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
