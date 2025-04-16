@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React from "react";
 
-const PaymentSuccess = ({
-  searchParams,
-}: {
-  searchParams: Promise<any> | undefined;
-}) => {
-  const { amount } = searchParams;
+type SearchParams = {
+  amount?: string;
+};
+
+const PaymentSuccess = ({ searchParams }: { searchParams: SearchParams }) => {
+  const amount = searchParams?.amount;
 
   return (
     <div className="bg-[var(--background)] text-[var(--text)] flex justify-center items-center h-screen">
