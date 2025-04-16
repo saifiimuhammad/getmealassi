@@ -27,6 +27,7 @@ export async function POST(req: Request) {
         buffer: avatarBuffer,
         mimetype: avatarRaw.type,
       };
+      // @ts-ignore
       const [avatarUpload] = await uploadFilesToCloudinary([avatarFile]);
       avatar = {
         public_id: avatarUpload.public_id,
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
         buffer: bannerBuffer,
         mimetype: bannerRaw.type,
       };
+      // @ts-ignore
       const [bannerUpload] = await uploadFilesToCloudinary([bannerFile]);
       banner = {
         public_id: bannerUpload.public_id,
