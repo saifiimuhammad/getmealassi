@@ -1,7 +1,9 @@
+// @ts-ignore
+
 import Link from "next/link";
 import React from "react";
 
-function PaymentSuccess({ searchParams }) {
+function PaymentSuccess({ searchParams }: { searchParams: any }) {
   // Handle different formats of the amount parameter
   const { amount } = searchParams;
 
