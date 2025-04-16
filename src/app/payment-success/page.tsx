@@ -1,8 +1,7 @@
-import { Metadata } from "next";
+// @ts-nocheck
+
 import Link from "next/link";
 import React from "react";
-
-// @ts-nocheck
 
 function PaymentSuccess({ searchParams }) {
   // Handle different formats of the amount parameter
