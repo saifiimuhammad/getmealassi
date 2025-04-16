@@ -1,12 +1,25 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
-type SearchParams = {
-  amount?: string;
+// Use the correct type for page props in App Router
+interface PageProps {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export const metadata: Metadata = {
+  title: "Payment Success",
 };
 
-const PaymentSuccess = ({ searchParams }: { searchParams: SearchParams }) => {
-  const amount = searchParams?.amount;
+function PaymentSuccess({ searchParams }: PageProps) {
+  // Handle different formats of the amount parameter
+  const amount =
+    typeof searchParams.amount === "string"
+      ? searchParams.amount
+      : Array.isArray(searchParams.amount)
+      ? searchParams.amount[0]
+      : "0";
 
   return (
     <div className="bg-[var(--background)] text-[var(--text)] flex justify-center items-center h-screen">
@@ -29,6 +42,6 @@ const PaymentSuccess = ({ searchParams }: { searchParams: SearchParams }) => {
       </div>
     </div>
   );
-};
+}
 
 export default PaymentSuccess;
