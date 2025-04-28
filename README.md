@@ -1,7 +1,7 @@
 # GetMeALassi 🥤
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/saifiimuhammad/getmealassi/main/public/logo.png" alt="GetMeALassi Logo" width="250"/>
+  <img src="https://raw.githubusercontent.com/saifiimuhammad/getmealassi/master/public/logo.png" alt="GetMeALassi Logo" width="250"/>
 </p>
 
 **A Crowdfunding Platform (Patreon Clone)**  
@@ -73,9 +73,11 @@ Built with Next.js, Stripe, TypeScript — empowering creators to earn from thei
 
 ---
 
-## 📸 Screenshots
+## 📸 Demo
 
-> _Coming soon..._
+https://github.com/user-attachments/assets/e005f4cd-6865-4b66-964b-90965ded7232
+
+
 
 ---
 
